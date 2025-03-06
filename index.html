@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versatile Card Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --bg-color: #f0f2f5;
+            --text-color: #333;
+            --card-bg: white;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            --title-color: #2c3e50;
+            --description-color: #555;
+            --border-color: #eee;
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2c2c2c;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            --title-color: #ffffff;
+            --description-color: #cccccc;
+            --border-color: #444;
+        }
+
+        body {
+            padding: 40px 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--title-color);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: #3498db;
+            margin: 20px auto 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--title-color);
+            margin-bottom: 15px;
+        }
+
+        .card-description {
+            color: var(--description-color);
+            line-height: 1.6;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-image-small {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #3498db;
+        }
+
+        .card-footer {
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .like-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .like-button.active {
+            color: #e74c3c;
+        }
+
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .mode-toggle:hover {
+            background: #2980b9;
+        }
+
+        /* Specific card styles */
+        .card-top {
+            flex-direction: column;
+        }
+
+        .card-bottom {
+            flex-direction: column-reverse;
+        }
+
+        .card-left,
+        .card-right {
+            display: flex;
+            height: auto;
+        }
+
+        .card-left .card-image,
+        .card-right .card-image {
+            width: 40%;
+            height: auto;
+        }
+
+        .card-right {
+            flex-direction: row-reverse;
+        }
+
+        .card-middle-image .card-content {
+            justify-content: space-between;
+        }
+
+        .card-start-image .card-content {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .card-start-image .card-text {
+            margin-left: 20px;
+        }
+
+        @media (max-width: 768px) {
+
+            .card-left,
+            .card-right {
+                flex-direction: column;
+            }
+
+            .card-left .card-image,
+            .card-right .card-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <body>
+        <button class="mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        <h1 class="main-title">Versatile Card Showcase</h1>
+        <div class="container">
+            <div class="card card-top">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80"
+                    alt="Beautiful mountain landscape" class="card-image">
+                <div class="card-content">
+                    <h2 class="card-title">Natural Wonders</h2>
+                    <p class="card-description">
+                        Explore breathtaking mountain landscapes that inspire awe and wonder. These majestic peaks offer
+                        stunning views and unforgettable experiences.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button class="like-button" onclick="toggleLike(this)">❤</button>
+                </div>
+            </div>
+
+            <div class="card card-bottom">
+                <div class="card-content">
+                    <h2 class="card-title">Modern Technology</h2>
+                    <p class="card-description">
+                        Discover the latest innovations shaping our future. From AI to renewable energy, these
+                        advancements are transforming how we live and work.
+                    </p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80"
+                    alt="Technology devices on desk" class="card-image">
+                <div class="card-footer">
+                    <button class="like-button" onclick="toggleLike(this)">❤</button>
+                </div>
+            </div>
+
+            <div class="card card-left">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80"
+                    alt="Delicious pizza" class="card-image">
+                <div class="card-content">
+                    <h2 class="card-title">Culinary Delights</h2>
+                    <p class="card-description">
+                        Savor authentic Italian cuisine with our handcrafted pizzas. Fresh ingredients and traditional
+                        recipes create the perfect balance of flavors.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button class="like-button" onclick="toggleLike(this)">❤</button>
+                </div>
+            </div>
+
+            <div class="card card-right">
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80"
+                    alt="Fitness equipment" class="card-image">
+                <div class="card-content">
+                    <h2 class="card-title">Fitness Journey</h2>
+                    <p class="card-description">
+                        Embark on a transformative fitness journey. Our approach combines effective workouts, nutrition,
+                        and wellness techniques for sustainable results.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button class="like-button" onclick="toggleLike(this)">❤</button>
+                </div>
+            </div>
+
+            <div class="card card-middle-image">
+                <div class="card-content">
+                    <h2 class="card-title">Product Review</h2>
+                    <p class="card-description">
+                        "This product exceeded all my expectations. The quality is outstanding and the customer service
+                        was top-notch."
+                    </p>
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80"
+                        alt="Happy customer" class="card-image-small">
+                    <p class="card-description">
+                        "I've been using it for a month now, and it's the best purchase I've made this year. Highly
+                        recommended!"
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button class="like-button" onclick="toggleLike(this)">❤</button>
+                </div>
+            </div>
+
+            <div class="card card-start-image">
+                <div class="card-content">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80"
+                        alt="Satisfied user" class="card-image-small">
+                    <div class="card-text">
+                        <h2 class="card-title">User Testimonial</h2>
+                        <p class="card-description">
+                            "As a long-time user, I can attest to the reliability and efficiency of this service. It has
+                            streamlined my workflow and saved me countless hours."
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="like-button" onclick="toggleLike(this)">❤</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+            function toggleLike(button) {
+                button.classList.toggle('active');
+            }
+            function toggleLike(button) {
+                button.classList.toggle('active');
+            }
+
+            function toggleDarkMode() {
+                document.body.classList.toggle('dark-mode');
+                const modeToggle = document.querySelector('.mode-toggle');
+                if (document.body.classList.contains('dark-mode')) {
+                    modeToggle.textContent = 'Toggle Light Mode';
+                } else {
+                    modeToggle.textContent = 'Toggle Dark Mode';
+                }
+            }
+        </script>
+    </body>
+
+</html>
